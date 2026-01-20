@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    background: linear-gradient(135deg, #d81b60, #ec407a);
+}
+
+
+/* Center container */
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Shayari input box */
+textarea {
+    width: 100%;
+    height: 140px;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    resize: none;
+    box-sizing: border-box;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Save button */
+button {
+    padding: 10px 26px;
+    font-size: 16px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #880e4f, #ad1457);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #6a0c3e, #880e4f);
+    transform: scale(1.05);
+}
+
+/* Saved shayari cards */
+.shayari-card {
+    background: linear-gradient(135deg, #e91e63, #f48fb1);
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 14px;
+    color: #fff;
+    box-sizing: border-box;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
+}
+
+/* Shayari text */
+.shayari-card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Date & time */
+.shayari-card small {
+    display: block;
+    margin-top: 8px;
+    opacity: 0.85;
+    font-size: 13px;
+}
+.action-buttons {
+    margin-top: 10px;
+}
+
+.action-buttons button {
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 20px;
+    margin-right: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background: linear-gradient(135deg, #880e4f, #ad1457);
+    color: white;
+}
+
+.delete-btn {
+    background: linear-gradient(135deg, #880e4f, #ad1457);
+    color: white;
+}
