@@ -1,54 +1,132 @@
-const saveBtn = document.getElementById("saveBtn");
-const shayariInput = document.getElementById("shayariInput");
-const shayariList = document.getElementById("shayariList");
+import { auth, db } from "./firebase.js";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-auth.js";
 
-let shayariData = JSON.parse(localStorage.getItem("shayari")) || [];
+import {
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs
+} from "https://www.gstatic.com/firebasejs/12.10.0/firebase-firestore.js";
 
-function renderShayari() {
-    shayariList.innerHTML = "";
+const visitorBox = document.getElementById("visitorBox");
+const chatBox = document.getElementById("chatBox");
+const authError = document.getElementById("authError");
 
-    shayariData.forEach((item, index) => {
-        const card = document.createElement("div");
-        card.className = "shayari-card";
 
-        card.innerHTML = `
-            <p>${item.text}</p>
-            <small>${item.time}</small>
-            <div class="action-buttons">
-                <button class="edit-btn" onclick="editShayari(${index})">Edit</button>
-                <button class="delete-btn" onclick="deleteShayari(${index})">Delete</button>
-            </div>
-        `;
+// ✅ LOGIN / SIGNUP
+window.saveVisitor = async function () {
+  const email = document.getElementById("emailInput")?.value.trim();
+  const password = document.getElementById("passwordInput")?.value.trim();
 
-        shayariList.appendChild(card);
-    });
-}
+  if (!email || !password) {
+    authError.textContent = "Please enter email & password";
+    return;
+  }
 
-saveBtn.addEventListener("click", () => {
-    if (shayariInput.value.trim() === "") return;
+  try {
+    // First try login
+    await signInWithEmailAndPassword(auth, email, password);
+    authError.textContent = "";
+  } catch (error) {
 
-    const newShayari = {
-        text: shayariInput.value,
-        time: new Date().toLocaleString()
-    };
+    if (
+      error.code === "auth/user-not-found" ||
+      error.code === "auth/invalid-credential"
+    ) {
+      // If account not found → create new account
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        authError.textContent = "";
+      } catch (signupError) {
+        authError.textContent = signupError.message;
+      }
+    }
 
-    shayariData.unshift(newShayari);
-    localStorage.setItem("shayari", JSON.stringify(shayariData));
-    shayariInput.value = "";
-    renderShayari();
+    else if (error.code === "auth/wrong-password") {
+      authError.textContent = "Wrong password ❌";
+    }
+
+    else {
+      authError.textContent = error.message;
+    }
+  }
+};
+
+
+// ✅ Auto Login Check
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    visitorBox.style.display = "none";
+    chatBox.style.display = "block";
+    loadThoughts();
+  } else {
+    visitorBox.style.display = "block";
+    chatBox.style.display = "none";
+  }
 });
 
-function deleteShayari(index) {
-    shayariData.splice(index, 1);
-    localStorage.setItem("shayari", JSON.stringify(shayariData));
-    renderShayari();
+
+// ✅ Logout
+window.logout = async function () {
+  await signOut(auth);
+};
+
+
+// ✅ Save Thought
+document.getElementById("saveBtn").addEventListener("click", async () => {
+  const text = document.getElementById("shayariInput").value.trim();
+  if (!text) return;
+
+  const user = auth.currentUser;
+  if (!user) return;
+
+  await addDoc(collection(db, "thoughts"), {
+    uid: user.uid,
+    text: text,
+    createdAt: new Date()
+  });
+
+  document.getElementById("shayariInput").value = "";
+  loadThoughts();
+});
+
+
+// ✅ Load Thoughts
+async function loadThoughts() {
+  const user = auth.currentUser;
+  if (!user) return;
+
+  const q = query(
+    collection(db, "thoughts"),
+    where("uid", "==", user.uid)
+  );
+
+  const querySnapshot = await getDocs(q);
+
+  const shayariList = document.getElementById("shayariList");
+  shayariList.innerHTML = "";
+
+  querySnapshot.forEach((doc) => {
+    const div = document.createElement("div");
+    div.textContent = doc.data().text;
+    shayariList.appendChild(div);
+  });
 }
 
-function editShayari(index) {
-    shayariInput.value = shayariData[index].text;
-    shayariData.splice(index, 1);
-    localStorage.setItem("shayari", JSON.stringify(shayariData));
-    renderShayari();
-}
 
-renderShayari();
+// ✅ Music
+window.playMusic = function () {
+  const music = document.getElementById("musicSelect").value;
+  const player = document.getElementById("player");
+
+  if (music) {
+    player.src = music;
+    player.play();
+  }
+};

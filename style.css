@@ -1,107 +1,138 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    padding: 20px;
-    background: linear-gradient(135deg, #d81b60, #ec407a);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
-
-/* Center container */
 .container {
-    max-width: 800px;
-    margin: auto;
+  width: 100%;
+  max-width: 500px;
 }
 
-/* Shayari input box */
+/* ================= LOGIN ================= */
+
+.login-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  text-align: center;
+  color: white;
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.login-box input:focus {
+  border: 2px solid #00c6ff;
+}
+
+.login-box button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border-radius: 8px;
+  border: none;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-box button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
+}
+
+#authError {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #ff4d4d;
+}
+
+/* ================= CHAT BOX ================= */
+
+.chat-box {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  color: white;
+}
+
+.chat-box h2 {
+  margin-bottom: 15px;
+}
+
+.chat-box button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  transition: 0.3s;
+}
+
+.chat-box button:hover {
+  opacity: 0.9;
+}
+
 textarea {
-    width: 100%;
-    height: 140px;
-    padding: 14px;
-    font-size: 16px;
-    border-radius: 12px;
-    border: none;
-    outline: none;
-    resize: none;
-    box-sizing: border-box;
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  resize: none;
+  height: 90px;
+  outline: none;
+  font-size: 14px;
 }
 
-/* Save button */
-button {
-    padding: 10px 26px;
-    font-size: 16px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #880e4f, #ad1457);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
-    transition: 0.3s;
+select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 10px;
+  outline: none;
 }
 
-button:hover {
-    background: linear-gradient(135deg, #6a0c3e, #880e4f);
-    transform: scale(1.05);
+#shayariList {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-/* Saved shayari cards */
-.shayari-card {
-    background: linear-gradient(135deg, #e91e63, #f48fb1);
-    padding: 14px;
-    margin-top: 15px;
-    border-radius: 14px;
-    color: #fff;
-    box-sizing: border-box;
-    box-shadow: 0 6px 14px rgba(0,0,0,0.25);
-}
-
-/* Shayari text */
-.shayari-card p {
-    margin: 0;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-/* Date & time */
-.shayari-card small {
-    display: block;
-    margin-top: 8px;
-    opacity: 0.85;
-    font-size: 13px;
-}
-.action-buttons {
-    margin-top: 10px;
-}
-
-.action-buttons button {
-    padding: 6px 14px;
-    font-size: 14px;
-    border-radius: 20px;
-    margin-right: 8px;
-    border: none;
-    cursor: pointer;
-}
-
-.edit-btn {
-    background: linear-gradient(135deg, #880e4f, #ad1457);
-    color: white;
-}
-
-.delete-btn {
-    background: linear-gradient(135deg, #880e4f, #ad1457);
-    color: white;
-}
-/* Mobile styles for screens <= 600px */
-@media only screen and (max-width: 600px) {
-  body {
-    font-size: 16px;
-    padding: 10px;
-  }
-  .navbar {
-    flex-direction: column; /* menu vertically stack */
-  }
-  img {
-    width: 100%; /* images auto scale */
-    height: auto;
-  }
+#shayariList div {
+  background: rgba(255,255,255,0.15);
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  font-size: 14px;
 }
