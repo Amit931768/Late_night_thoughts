@@ -119,23 +119,21 @@ async function loadThoughts() {
   });
 }
 
-
-// 1️⃣ Songs list
+// Songs List
 const lofiSongs = [
-  { name: "Midnight Rain", url: "/mp3/my_songs/Chori_Chori_Sapnon_Me.mp3" },
-  { name: "Lonely Moon", url: "/mp3/my_songs/Naam_Chale_1.mp3" },
-  { name: "Silent Night Vibes", url: "/mp3/my_songs/Up_To_You.mp3"},
-  { name: "Rainy Window", url: "/mp3/my_songs/Falak_Dekhun.mp3" },
-  { name: "Chill Vibes", url: "/mp3/my_songs/marshmello_friends.mp3" }
+  { name: "Midnight Rain", url: "mp3/my_songs/Chori_Chori_Sapnon_Me.mp3" },
+  { name: "Lonely Moon", url: "mp3/my_songs/Naam_Chale_1.mp3" },
+  { name: "Silent Night Vibes", url: "mp3/my_songs/Up_To_You.mp3" },
+  { name: "Rainy Window", url: "mp3/my_songs/Falak_Dekhun.mp3" },
+  { name: "Chill Vibes", url: "mp3/my_songs/marshmello_friends.mp3" }
 ];
 
-// 2️⃣ Function to populate dropdown
 function populateSongs() {
   const musicSelect = document.getElementById("musicSelect");
   musicSelect.innerHTML = "";
 
   const defaultOption = document.createElement("option");
-  defaultOption.text = "Select your mood song";
+  defaultOption.text = "🎵 Select Mood";
   defaultOption.value = "";
   musicSelect.appendChild(defaultOption);
 
@@ -147,7 +145,7 @@ function populateSongs() {
   });
 }
 
-// 3️⃣ After login, show chat and populate songs
+// Call populateSongs() after login
 onAuthStateChanged(auth, (user) => {
   if (user) {
     visitorBox.style.display = "none";
@@ -160,7 +158,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// 4️⃣ Play Music function (agar already nahi hai)
+// Play music function
 window.playMusic = function () {
   const music = document.getElementById("musicSelect").value;
   const player = document.getElementById("player");

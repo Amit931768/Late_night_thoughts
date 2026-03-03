@@ -26,12 +26,10 @@
     <button onclick="logout()" style="float:right;">Logout</button>
 
     <!-- Music -->
-    <select id="musicSelect" onchange="playMusic()">
-      <option value="">🎵 Select Mood</option>
-      <option value="music/night.mp3">Night</option>
-      <option value="music/sad.mp3">Sad</option>
-      <option value="music/lofi.mp3">Lo-Fi</option>
-    </select>
+    
+  <select id="musicSelect" onchange="playMusic()">
+    <!-- Options will be populated dynamically via script.js -->
+  </select>
 
     <audio id="player" controls style="width:100%; margin-top:10px;"></audio>
 
