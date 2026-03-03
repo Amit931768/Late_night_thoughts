@@ -59,19 +59,6 @@ window.saveVisitor = async function () {
 };
 
 
-// ✅ Auto Login Check
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    visitorBox.style.display = "none";
-    chatBox.style.display = "block";
-    loadThoughts();
-  } else {
-    visitorBox.style.display = "block";
-    chatBox.style.display = "none";
-  }
-});
-
-
 // ✅ Logout
 window.logout = async function () {
   await signOut(auth);
